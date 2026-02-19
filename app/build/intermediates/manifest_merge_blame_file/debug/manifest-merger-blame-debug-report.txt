@@ -1,0 +1,100 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.pdascanner.urovo"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="29" />
+10
+11    <uses-permission
+11-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:4:5-5:38
+12        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+12-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:4:22-78
+13        android:maxSdkVersion="28" />
+13-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:5:9-35
+14    <uses-permission
+14-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:6:5-7:38
+15        android:name="android.permission.READ_EXTERNAL_STORAGE"
+15-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:6:22-77
+16        android:maxSdkVersion="28" />
+16-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:7:9-35
+17
+18    <permission
+18-->[androidx.core:core:1.9.0] C:\Users\POOVARASAN\.gradle\caches\transforms-3\47e328fbb9a6da19e7cdd96cc41cfa33\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+19        android:name="com.pdascanner.urovo.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+19-->[androidx.core:core:1.9.0] C:\Users\POOVARASAN\.gradle\caches\transforms-3\47e328fbb9a6da19e7cdd96cc41cfa33\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+20        android:protectionLevel="signature" />
+20-->[androidx.core:core:1.9.0] C:\Users\POOVARASAN\.gradle\caches\transforms-3\47e328fbb9a6da19e7cdd96cc41cfa33\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+21
+22    <uses-permission android:name="com.pdascanner.urovo.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+22-->[androidx.core:core:1.9.0] C:\Users\POOVARASAN\.gradle\caches\transforms-3\47e328fbb9a6da19e7cdd96cc41cfa33\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+22-->[androidx.core:core:1.9.0] C:\Users\POOVARASAN\.gradle\caches\transforms-3\47e328fbb9a6da19e7cdd96cc41cfa33\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+23
+24    <application
+24-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:9:5-30:19
+25        android:allowBackup="false"
+25-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:10:9-36
+26        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+26-->[androidx.core:core:1.9.0] C:\Users\POOVARASAN\.gradle\caches\transforms-3\47e328fbb9a6da19e7cdd96cc41cfa33\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+27        android:debuggable="true"
+28        android:extractNativeLibs="false"
+29        android:label="@string/app_name"
+29-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:11:9-41
+30        android:supportsRtl="true"
+30-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:12:9-35
+31        android:theme="@style/Theme.PDAScanner" >
+31-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:13:9-48
+32        <activity
+32-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:15:9-23:20
+33            android:name="com.pdascanner.urovo.LoginActivity"
+33-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:16:13-42
+34            android:exported="true"
+34-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:17:13-36
+35            android:windowSoftInputMode="adjustResize" >
+35-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:18:13-55
+36            <intent-filter>
+36-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:19:13-22:29
+37                <action android:name="android.intent.action.MAIN" />
+37-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:20:17-69
+37-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:20:25-66
+38
+39                <category android:name="android.intent.category.LAUNCHER" />
+39-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:21:17-77
+39-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:21:27-74
+40            </intent-filter>
+41        </activity>
+42        <activity
+42-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:25:9-28:58
+43            android:name="com.pdascanner.urovo.DashboardActivity"
+43-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:26:13-46
+44            android:exported="false"
+44-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:27:13-37
+45            android:windowSoftInputMode="adjustResize" />
+45-->D:\antigravity Project\PDA_scanner\app\src\main\AndroidManifest.xml:28:13-55
+46
+47        <provider
+47-->[androidx.emoji2:emoji2:1.2.0] C:\Users\POOVARASAN\.gradle\caches\transforms-3\97e468b2ae8f16656080115164696a75\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+48            android:name="androidx.startup.InitializationProvider"
+48-->[androidx.emoji2:emoji2:1.2.0] C:\Users\POOVARASAN\.gradle\caches\transforms-3\97e468b2ae8f16656080115164696a75\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:25:13-67
+49            android:authorities="com.pdascanner.urovo.androidx-startup"
+49-->[androidx.emoji2:emoji2:1.2.0] C:\Users\POOVARASAN\.gradle\caches\transforms-3\97e468b2ae8f16656080115164696a75\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:26:13-68
+50            android:exported="false" >
+50-->[androidx.emoji2:emoji2:1.2.0] C:\Users\POOVARASAN\.gradle\caches\transforms-3\97e468b2ae8f16656080115164696a75\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:27:13-37
+51            <meta-data
+51-->[androidx.emoji2:emoji2:1.2.0] C:\Users\POOVARASAN\.gradle\caches\transforms-3\97e468b2ae8f16656080115164696a75\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+52                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+52-->[androidx.emoji2:emoji2:1.2.0] C:\Users\POOVARASAN\.gradle\caches\transforms-3\97e468b2ae8f16656080115164696a75\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:30:17-75
+53                android:value="androidx.startup" />
+53-->[androidx.emoji2:emoji2:1.2.0] C:\Users\POOVARASAN\.gradle\caches\transforms-3\97e468b2ae8f16656080115164696a75\transformed\jetified-emoji2-1.2.0\AndroidManifest.xml:31:17-49
+54            <meta-data
+54-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\POOVARASAN\.gradle\caches\transforms-3\ab97335a65fd3990eb1de4486ad16c03\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+55                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+55-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\POOVARASAN\.gradle\caches\transforms-3\ab97335a65fd3990eb1de4486ad16c03\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+56                android:value="androidx.startup" />
+56-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\POOVARASAN\.gradle\caches\transforms-3\ab97335a65fd3990eb1de4486ad16c03\transformed\jetified-lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+57        </provider>
+58    </application>
+59
+60</manifest>

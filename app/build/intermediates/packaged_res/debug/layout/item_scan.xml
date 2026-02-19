@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginTop="@dimen/card_margin"
+    android:layout_marginBottom="@dimen/card_margin"
+    app:cardBackgroundColor="@color/colorCardBackground"
+    app:cardCornerRadius="@dimen/card_corner_radius"
+    app:cardElevation="@dimen/card_elevation">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:minHeight="@dimen/scan_item_min_height"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
+
+        <!-- Sequence number -->
+        <TextView
+            android:id="@+id/textSeqNumber"
+            android:layout_width="@dimen/seq_number_width"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTextAmber"
+            android:textStyle="bold"
+            android:textSize="@dimen/scan_item_seq_text_size"
+            android:gravity="center"
+            android:text="#" />
+
+        <!-- Vertical divider -->
+        <View
+            android:layout_width="1dp"
+            android:layout_height="32dp"
+            android:background="@color/colorDisabled"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Barcode string -->
+        <TextView
+            android:id="@+id/textBarcode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="@dimen/scan_item_barcode_text_size"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text="BARCODE" />
+
+        <!-- Timestamp -->
+        <TextView
+            android:id="@+id/textTimestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTextSecondary"
+            android:textSize="@dimen/scan_item_timestamp_text_size"
+            android:layout_marginStart="8dp"
+            android:text="00:00:00" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

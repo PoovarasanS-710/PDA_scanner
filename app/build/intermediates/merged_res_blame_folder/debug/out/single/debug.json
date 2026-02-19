@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "com.pdascanner.urovo.app-merged_res-29:/layout_item_scan.xml.flat",
+        "source": "com.pdascanner.urovo.app-main-31:/layout/item_scan.xml"
+    },
+    {
+        "merged": "com.pdascanner.urovo.app-merged_res-29:/layout_activity_dashboard.xml.flat",
+        "source": "com.pdascanner.urovo.app-main-31:/layout/activity_dashboard.xml"
+    },
+    {
+        "merged": "com.pdascanner.urovo.app-merged_res-29:/layout_activity_login.xml.flat",
+        "source": "com.pdascanner.urovo.app-main-31:/layout/activity_login.xml"
+    }
+]

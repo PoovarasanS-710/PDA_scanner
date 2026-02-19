@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary brand colors — warehouse high-contrast palette -->
+    <color name="colorPrimary">#1A1A2E</color>
+    <color name="colorPrimaryVariant">#16213E</color>
+    <color name="colorSecondary">#F5A623</color>
+    <color name="colorAccent">#F5A623</color>
+
+    <!-- Backgrounds -->
+    <color name="colorBackground">#0F3460</color>
+    <color name="colorSurface">#1A1A2E</color>
+    <color name="colorCardBackground">#16213E</color>
+
+    <!-- Text -->
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorTextPrimary">#FFFFFF</color>
+    <color name="colorTextSecondary">#B0BEC5</color>
+    <color name="colorTextAmber">#F5A623</color>
+
+    <!-- Status -->
+    <color name="colorError">#FF4444</color>
+    <color name="colorSuccess">#4CAF50</color>
+    <color name="colorDisabled">#546E7A</color>
+
+    <!-- Button backgrounds -->
+    <color name="colorButtonScan">#F5A623</color>
+    <color name="colorButtonLogout">#FF4444</color>
+    <color name="colorButtonExport">#1565C0</color>
+    <color name="colorButtonText">#1A1A2E</color>
+</resources>

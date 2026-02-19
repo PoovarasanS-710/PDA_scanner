@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">PDA Scanner</string>
+    <string name="login_title">PDA Scanner</string>
+    <string name="login_subtitle">Urovo DT50s — Warehouse Edition</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_password">Password</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_scan">SCAN</string>
+    <string name="btn_export">EXPORT</string>
+    <string name="btn_logout">LOGOUT</string>
+    <string name="label_scan_count">0 scans</string>
+    <string name="error_username_required">Username is required</string>
+    <string name="error_password_required">Password is required</string>
+    <string name="msg_duplicate_scan">Duplicate scan ignored</string>
+    <string name="msg_invalid_scan">Invalid scan — no data received</string>
+    <string name="msg_export_empty">No scans to export</string>
+    <string name="msg_export_success">Exported to: %1$s</string>
+    <string name="msg_export_error">Export failed: %1$s</string>
+    <string name="dialog_logout_title">Logout</string>
+    <string name="dialog_logout_message">You have %1$d scan(s). Logging out will clear all data. Continue?</string>
+    <string name="dialog_scanner_error_title">Scanner Error</string>
+    <string name="btn_yes_logout">Logout</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_ok">OK</string>
+    <string name="col_number">#</string>
+    <string name="col_barcode">Barcode</string>
+    <string name="col_timestamp">Timestamp</string>
+    <string name="export_filename_prefix">ScanSession_</string>
+    <string name="sheet_name">Scan Session</string>
+</resources>
