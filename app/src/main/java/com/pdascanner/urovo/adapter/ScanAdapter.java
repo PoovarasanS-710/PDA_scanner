@@ -24,7 +24,7 @@ import java.util.Locale;
 public class ScanAdapter extends RecyclerView.Adapter<ScanAdapter.ViewHolder> {
 
     private static final SimpleDateFormat SDF =
-            new SimpleDateFormat("HH:mm:ss  dd/MM/yy", Locale.getDefault());
+            new SimpleDateFormat("HH:mm:ss dd/MM/yyyy", Locale.getDefault());
 
     private final List<ScanItem> items;
 
