@@ -22,9 +22,10 @@ import java.lang.reflect.Method;
 /**
  * DashboardActivity — Main scan session screen.
  *
- * Scanner integration: Urovo DT50s ScanManager via reflection + Broadcast Intent.
+ * Scanner integration: Urovo ScanManager via reflection + Broadcast Intent.
  * Using reflection allows the APK to compile on any machine (no SDK JAR required).
- * At runtime on the DT50s, the system class is resolved from the device firmware.
+ * At runtime on Urovo devices (CT58, DT50s, etc.), the system class is resolved
+ * from the device firmware.
  */
 public class DashboardActivity extends AppCompatActivity {
 
@@ -126,10 +127,18 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void initScanner() {
         try {
-            Class<?> smClass = Class.forName("device.scanner.ScanManager");
+            // Try official Urovo SDK class first (works on CT58, DT50s, etc.)
+            Class<?> smClass;
+            try {
+                smClass = Class.forName("android.device.ScanManager");
+            } catch (ClassNotFoundException e) {
+                // Fallback for legacy firmware that may use old package path
+                smClass = Class.forName("device.scanner.ScanManager");
+            }
             scanManagerInstance = smClass.getDeclaredConstructor().newInstance();
             smClass.getMethod("openScanner").invoke(scanManagerInstance);
-            smClass.getMethod("switchOutputMode", int.class).invoke(scanManagerInstance, 1);
+            // 0 = Intent mode (broadcasts ACTION_DECODE_DATA), 1 = TextBox mode
+            smClass.getMethod("switchOutputMode", int.class).invoke(scanManagerInstance, 0);
         } catch (Exception e) {
             // Running on non-Urovo device (emulator/dev machine) — scanner won't work
             // but rest of app is fully functional. No dialog spam on dev machines.
@@ -141,7 +150,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void triggerScan() {
         if (scanManagerInstance == null) {
-            showScannerError("Scanner not available on this device.\n\nPlease use a Urovo DT50s.");
+            showScannerError("Scanner not available on this device.\n\nPlease use a supported Urovo device.");
             return;
         }
         try {

@@ -1,0 +1,3 @@
+com.pdascanner.urovo.test
+style WhiteBackgroundDialogTheme
+style WhiteBackgroundTheme

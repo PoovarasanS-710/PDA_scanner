@@ -17,8 +17,13 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import android.content.ContentValues;
+import android.net.Uri;
+import android.provider.MediaStore;
+
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -99,28 +104,43 @@ public class ExportManager {
         String filename = context.getString(R.string.export_filename_prefix)
                 + FILENAME_SDF.format(new Date()) + ".xlsx";
 
-        File downloadsDir;
+        String savedPath;
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-            // API 29+: use app-scoped external files directory (no permission needed)
-            downloadsDir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+            // API 29+: use MediaStore to save to public Downloads folder
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.Downloads.DISPLAY_NAME, filename);
+            values.put(MediaStore.Downloads.MIME_TYPE,
+                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            values.put(MediaStore.Downloads.RELATIVE_PATH,
+                    Environment.DIRECTORY_DOWNLOADS);
+
+            Uri uri = context.getContentResolver().insert(
+                    MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
+            if (uri == null) throw new Exception("Failed to create file in Downloads");
+
+            try (OutputStream os = context.getContentResolver().openOutputStream(uri)) {
+                if (os == null) throw new Exception("Failed to open output stream");
+                workbook.write(os);
+            }
+            savedPath = Environment.DIRECTORY_DOWNLOADS + "/" + filename;
         } else {
             // API < 29: use public Downloads folder (requires WRITE_EXTERNAL_STORAGE)
-            downloadsDir = Environment.getExternalStoragePublicDirectory(
+            File downloadsDir = Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_DOWNLOADS);
+            if (downloadsDir != null && !downloadsDir.exists()) {
+                //noinspection ResultOfMethodCallIgnored
+                downloadsDir.mkdirs();
+            }
+            File outputFile = new File(downloadsDir, filename);
+            try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                workbook.write(fos);
+            }
+            savedPath = outputFile.getAbsolutePath();
         }
 
-        if (downloadsDir != null && !downloadsDir.exists()) {
-            //noinspection ResultOfMethodCallIgnored
-            downloadsDir.mkdirs();
-        }
-
-        File outputFile = new File(downloadsDir, filename);
-        try (FileOutputStream fos = new FileOutputStream(outputFile)) {
-            workbook.write(fos);
-        }
         workbook.close();
-
-        return outputFile.getAbsolutePath();
+        return savedPath;
     }
 
     // ── Style helpers ─────────────────────────────────────────────────────────

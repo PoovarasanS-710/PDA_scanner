@@ -1,0 +1,6 @@
+com.pdascanner.urovo.test.app-jetified-annotation-experimental-1.3.0-0 C:\Users\POOVARASAN\.gradle\caches\transforms-3\26adbcd8585eeada7bfc59fd53ee450d\transformed\jetified-annotation-experimental-1.3.0\res
+com.pdascanner.urovo.test.app-jetified-core-1.5.0-1 C:\Users\POOVARASAN\.gradle\caches\transforms-3\c7663f177890d3fda2ee0fd19565de0c\transformed\jetified-core-1.5.0\res
+com.pdascanner.urovo.test.app-androidTest-2 D:\antigravity Project\PDA_scanner\app\build\generated\res\resValues\androidTest\debug
+com.pdascanner.urovo.test.app-mergeDebugAndroidTestResources-3 D:\antigravity Project\PDA_scanner\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.pdascanner.urovo.test.app-mergeDebugAndroidTestResources-4 D:\antigravity Project\PDA_scanner\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.pdascanner.urovo.test.app-merged_res-5 D:\antigravity Project\PDA_scanner\app\build\intermediates\merged_res\debugAndroidTest
