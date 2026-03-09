@@ -16,40 +16,37 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pdascanner.urovo.adapter.ScanAdapter;
-
-import java.lang.reflect.Method;
+import com.pdascanner.urovo.scanner.ScannerFactory;
+import com.pdascanner.urovo.scanner.ScannerProvider;
 
 /**
  * DashboardActivity — Main scan session screen.
  *
- * Scanner integration: Urovo ScanManager via reflection + Broadcast Intent.
- * Using reflection allows the APK to compile on any machine (no SDK JAR required).
- * At runtime on Urovo devices (CT58, DT50s, etc.), the system class is resolved
- * from the device firmware.
+ * Scanner integration uses a pluggable {@link ScannerProvider} abstraction.
+ * At launch, {@link ScannerFactory#detect(Context)} auto-detects the device
+ * brand and returns the correct provider (Urovo, Honeywell, Zebra, Newland,
+ * SUNMI, etc.). This lets the same APK work across all supported PDA brands.
  */
 public class DashboardActivity extends AppCompatActivity {
 
-    private static final String ACTION_DECODE_DATA  = "android.intent.ACTION_DECODE_DATA";
-    private static final String EXTRA_BARCODE_STRING = "barcode_string";
-
-    private ScanSession scanSession;
-    private ScanAdapter adapter;
-    private TextView    textScanCount;
-    private TextView    textEmpty;
-    private Button      btnExport;
+    private ScanSession  scanSession;
+    private ScanAdapter  adapter;
+    private TextView     textScanCount;
+    private TextView     textEmpty;
+    private Button       btnExport;
     private RecyclerView recyclerScans;
 
-    // Urovo ScanManager via reflection (compiles without SDK JAR)
-    private Object scanManagerInstance = null;
+    /** Detected scanner — null on unsupported devices (emulators, phones). */
+    private ScannerProvider scanner;
 
     // ── BroadcastReceiver ─────────────────────────────────────────────────────
 
     private final BroadcastReceiver scanReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (!ACTION_DECODE_DATA.equals(intent.getAction())) return;
+            if (scanner == null) return;
 
-            String barcode = intent.getStringExtra(EXTRA_BARCODE_STRING);
+            String barcode = scanner.extractBarcode(intent);
 
             if (barcode == null || barcode.trim().isEmpty()) {
                 Toast.makeText(DashboardActivity.this,
@@ -83,22 +80,28 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Register broadcast receiver every resume (unregistered in onPause)
-        IntentFilter filter = new IntentFilter(ACTION_DECODE_DATA);
-        registerReceiver(scanReceiver, filter);
+        if (scanner != null) {
+            IntentFilter filter = new IntentFilter(scanner.getScanAction());
+            registerReceiver(scanReceiver, filter);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         safeUnregisterReceiver();
-        scannerStopDecode();
+        if (scanner != null) {
+            scanner.stopDecode();
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        scannerClose();
+        if (scanner != null) {
+            scanner.close();
+            scanner = null;
+        }
     }
 
     // ── Initialisation ────────────────────────────────────────────────────────
@@ -126,54 +129,23 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void initScanner() {
-        try {
-            // Try official Urovo SDK class first (works on CT58, DT50s, etc.)
-            Class<?> smClass;
-            try {
-                smClass = Class.forName("android.device.ScanManager");
-            } catch (ClassNotFoundException e) {
-                // Fallback for legacy firmware that may use old package path
-                smClass = Class.forName("device.scanner.ScanManager");
-            }
-            scanManagerInstance = smClass.getDeclaredConstructor().newInstance();
-            smClass.getMethod("openScanner").invoke(scanManagerInstance);
-            // 0 = Intent mode (broadcasts ACTION_DECODE_DATA), 1 = TextBox mode
-            smClass.getMethod("switchOutputMode", int.class).invoke(scanManagerInstance, 0);
-        } catch (Exception e) {
-            // Running on non-Urovo device (emulator/dev machine) — scanner won't work
-            // but rest of app is fully functional. No dialog spam on dev machines.
-            scanManagerInstance = null;
+        scanner = ScannerFactory.detect(this);
+        if (scanner != null) {
+            scanner.open(this);
+            Toast.makeText(this,
+                    "Scanner: " + scanner.getName(), Toast.LENGTH_SHORT).show();
         }
     }
 
     // ── Scanner control ────────────────────────────────────────────────────────
 
     private void triggerScan() {
-        if (scanManagerInstance == null) {
-            showScannerError("Scanner not available on this device.\n\nPlease use a supported Urovo device.");
+        if (scanner == null) {
+            showScannerError("Scanner not available on this device.\n\n"
+                    + "Supported: Urovo, Honeywell, Zebra, Newland, SUNMI.");
             return;
         }
-        try {
-            Method startDecode = scanManagerInstance.getClass().getMethod("startDecode");
-            startDecode.invoke(scanManagerInstance);
-        } catch (Exception e) {
-            showScannerError("Failed to activate scanner: " + e.getMessage());
-        }
-    }
-
-    private void scannerStopDecode() {
-        if (scanManagerInstance == null) return;
-        try {
-            scanManagerInstance.getClass().getMethod("stopDecode").invoke(scanManagerInstance);
-        } catch (Exception ignored) {}
-    }
-
-    private void scannerClose() {
-        if (scanManagerInstance == null) return;
-        try {
-            scanManagerInstance.getClass().getMethod("closeScanner").invoke(scanManagerInstance);
-        } catch (Exception ignored) {}
-        scanManagerInstance = null;
+        scanner.startDecode();
     }
 
     private void safeUnregisterReceiver() {
